@@ -1,0 +1,53 @@
+meta {
+  name: Get bookmarks
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/v1/bookmarks?page=1&limit=5&sort=-createdAt
+  body: none
+  auth: none
+}
+
+params:query {
+  page: 1
+  limit: 5
+  sort: -createdAt
+  ~q: node
+  ~tag: node
+  ~favorite: true
+}
+
+vars:pre-request {
+  baseUrl: yusola.pro
+}
+
+assert {
+  res.status: eq 200
+  res.body.data: isArray
+  res.body.pagination.page: eq 1
+  res.body.pagination.limit: eq 5
+  res.body.pagination.total: gte 1
+}
+
+tests {
+  test("items have the bookmark shape", function () {
+    const first = res.getBody().data[0];
+    expect(first).to.have.property("id");
+    expect(first).to.have.property("url");
+    expect(first.tags).to.be.an("array");
+    expect(first).to.not.have.property("password");
+  });
+  
+  test("the bookmark created earlier appears in the list", function () {
+    const ids = res.getBody().data.map((bookmark) => bookmark.id);
+    expect(ids).to.include(bru.getVar("bookmarkId"));
+  });
+  
+  test("pagination metadata is internally consistent", function () {
+    const page = res.getBody().pagination;
+    expect(page.totalPages).to.equal(Math.ceil(page.total / page.limit));
+    expect(page.hasPrevious).to.equal(page.page > 1);
+  });
+}

@@ -4,14 +4,6 @@ import request from 'supertest';
 import { createApp } from '../src/app.ts';
 import * as repository from '../src/repositories/bookmark.repository.ts';
 
-/**
- * Tests drive the app factory, never a listening server: no port to bind, no
- * collisions, and they can run in parallel.
- *
- * They assert the contract — status, headers, error shape — and never reach
- * into a service or a private function. A test that breaks when you rename an
- * internal is a test that punishes refactoring.
- */
 const app = createApp();
 
 const valid = {
@@ -34,7 +26,10 @@ describe('health', () => {
 
 describe('POST /v1/bookmarks', () => {
   it('creates a bookmark and returns 201 with a Location header', async () => {
-    const response = await request(app).post('/v1/bookmarks').send(valid).expect(201);
+    const response = await request(app)
+      .post('/v1/bookmarks')
+      .send(valid)
+      .expect(201);
 
     assert.match(response.headers.location, /^\/v1\/bookmarks\/[0-9a-f-]{36}$/);
     assert.equal(response.body.url, valid.url);
@@ -64,9 +59,14 @@ describe('POST /v1/bookmarks', () => {
     assert.equal(response.body.code, 'validation_failed');
     assert.ok(Array.isArray(response.body.errors));
 
-    const fields = response.body.errors.map((issue: { field: string }) => issue.field);
+    const fields = response.body.errors.map(
+      (issue: { field: string }) => issue.field,
+    );
     assert.ok(fields.includes('body.url'));
-    assert.ok(fields.includes('body.title'), 'a missing required field is reported');
+    assert.ok(
+      fields.includes('body.title'),
+      'a missing required field is reported',
+    );
   });
 
   it('rejects an unknown key rather than silently ignoring it', async () => {
@@ -75,7 +75,9 @@ describe('POST /v1/bookmarks', () => {
       .send({ ...valid, titel: 'typo' })
       .expect(422);
 
-    const codes = response.body.errors.map((issue: { code: string }) => issue.code);
+    const codes = response.body.errors.map(
+      (issue: { code: string }) => issue.code,
+    );
     assert.ok(codes.includes('unrecognized_keys'));
   });
 
@@ -96,7 +98,12 @@ describe('GET /v1/bookmarks', () => {
     await request(app).post('/v1/bookmarks').send(valid);
     await request(app)
       .post('/v1/bookmarks')
-      .send({ url: 'https://expressjs.com', title: 'Express', tags: ['node'], favorite: true });
+      .send({
+        url: 'https://expressjs.com',
+        title: 'Express',
+        tags: ['node'],
+        favorite: true,
+      });
   });
 
   it('returns a page with pagination metadata', async () => {
@@ -109,23 +116,31 @@ describe('GET /v1/bookmarks', () => {
   });
 
   it('returns 200 and an empty array when nothing matches, not 404', async () => {
-    const response = await request(app).get('/v1/bookmarks?q=nothingmatchesthis').expect(200);
+    const response = await request(app)
+      .get('/v1/bookmarks?q=nothingmatchesthis')
+      .expect(200);
 
     assert.deepEqual(response.body.data, []);
     assert.equal(response.body.pagination.total, 0);
   });
 
   it('filters by tag and by favorite', async () => {
-    const byFavorite = await request(app).get('/v1/bookmarks?favorite=true').expect(200);
+    const byFavorite = await request(app)
+      .get('/v1/bookmarks?favorite=true')
+      .expect(200);
     assert.equal(byFavorite.body.data.length, 1);
     assert.equal(byFavorite.body.data[0].title, 'Express');
 
-    const byTag = await request(app).get('/v1/bookmarks?tag=javascript').expect(200);
+    const byTag = await request(app)
+      .get('/v1/bookmarks?tag=javascript')
+      .expect(200);
     assert.equal(byTag.body.data.length, 1);
   });
 
   it('sorts and paginates', async () => {
-    const response = await request(app).get('/v1/bookmarks?sort=title&limit=1&page=2').expect(200);
+    const response = await request(app)
+      .get('/v1/bookmarks?sort=title&limit=1&page=2')
+      .expect(200);
 
     assert.equal(response.body.data.length, 1);
     assert.equal(response.body.data[0].title, 'Node.js');
@@ -185,12 +200,18 @@ describe('updating and deleting', () => {
       .expect(200);
 
     assert.equal(response.body.url, 'https://deno.com');
-    assert.deepEqual(response.body.tags, [], 'omitted fields are reset, not kept');
+    assert.deepEqual(
+      response.body.tags,
+      [],
+      'omitted fields are reset, not kept',
+    );
     assert.equal(response.body.id, id, 'the id survives a replacement');
   });
 
   it('deletes with 204 and no body, then 404 on a second delete', async () => {
-    const deleted = await request(app).delete(`/v1/bookmarks/${id}`).expect(204);
+    const deleted = await request(app)
+      .delete(`/v1/bookmarks/${id}`)
+      .expect(204);
     assert.deepEqual(deleted.body, {});
 
     await request(app).delete(`/v1/bookmarks/${id}`).expect(404);
