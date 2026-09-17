@@ -1,0 +1,23 @@
+meta {
+  name: Create bookmark - invalid (422)
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/v1/bookmarks
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "url": "not-a-url",
+    "titel": "a typo the strict schema rejects"
+  }
+}
+
+assert {
+  res.status: eq 422
+  res.body.code: eq validation_failed
+}

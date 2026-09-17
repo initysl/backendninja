@@ -1,0 +1,21 @@
+{
+  "name": "eng",
+  "private": true,
+  "description": "Backend engineering roadmap projects",
+  "type": "module",
+  "workspaces": [
+    "fundamentals/*"
+  ],
+  "scripts": {
+    "test": "npm test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^24.13.5",
+    "typescript": "^5.9.3"
+  }
+}

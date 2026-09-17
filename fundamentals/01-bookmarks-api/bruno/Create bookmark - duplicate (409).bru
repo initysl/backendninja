@@ -1,0 +1,23 @@
+meta {
+  name: Create bookmark - duplicate (409)
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/v1/bookmarks
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "url": "https://nodejs.org",
+    "title": "Same URL as the previous request"
+  }
+}
+
+assert {
+  res.status: eq 409
+  res.body.code: eq conflict
+}
