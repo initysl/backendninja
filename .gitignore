@@ -30,3 +30,8 @@ Thumbs.db
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
+
+# Accidental tsc output. Projects here never emit JS — noEmit plus Node's
+# native type stripping — so a .js beside a .ts source is always a mistake.
+**/src/**/*.js
+**/test/**/*.js

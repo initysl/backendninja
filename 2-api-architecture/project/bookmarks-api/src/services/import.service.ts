@@ -7,14 +7,27 @@ import type { Writable } from 'node:stream';
 import { parse } from 'csv-parse';
 import { stringify } from 'csv-stringify';
 import { env } from '../config/env.ts';
-import { payloadTooLargeError, unprocessableError } from '../errors/api-errors.ts';
-import { csvRowSchema, type CreateBookmarkInput } from '../models/bookmark.model.ts';
+import {
+  payloadTooLargeError,
+  unprocessableError,
+} from '../errors/api-errors.ts';
+import {
+  csvRowSchema,
+  type CreateBookmarkInput,
+} from '../models/bookmark.model.ts';
 import * as bookmarks from '../repositories/bookmark.repository.ts';
 import * as reports from '../repositories/import-report.repository.ts';
 
 const BATCH_SIZE = 500;
 
-const REPORT_COLUMNS = ['line', 'url', 'title', 'field', 'code', 'message'] as const;
+const REPORT_COLUMNS = [
+  'line',
+  'url',
+  'title',
+  'field',
+  'code',
+  'message',
+] as const;
 
 export type ImportSummary = {
   importId: string;
@@ -51,7 +64,9 @@ function asClientError(error: unknown): unknown {
 
 // Memory stays proportional to the batch size, not the file size, so a file
 // larger than available RAM imports without trouble.
-export async function importBookmarksCsv(uploadPath: string): Promise<ImportSummary> {
+export async function importBookmarksCsv(
+  uploadPath: string,
+): Promise<ImportSummary> {
   const importId = randomUUID();
   const reportPath = reports.pathFor(importId);
 
@@ -93,7 +108,12 @@ export async function importBookmarksCsv(uploadPath: string): Promise<ImportSumm
       parser,
       // `for await` will not pull the next record until this body finishes,
       // which propagates backpressure all the way back to the file read.
-      async (records: AsyncIterable<{ record: Record<string, string>; info: { lines: number } }>) => {
+      async (
+        records: AsyncIterable<{
+          record: Record<string, string>;
+          info: { lines: number };
+        }>,
+      ) => {
         for await (const { record, info } of records) {
           totalRows += 1;
 

@@ -2,7 +2,7 @@
   "name": "bookmarks-api",
   "private": true,
   "type": "module",
-  "description": "Layer 1: full CRUD in bare Express with Zod validation, one consistent error envelope, and a streaming CSV import",
+  "description": "Practice project: CRUD in Express 5 with Zod validation, one RFC 9457 error envelope, and a streaming CSV import with proven backpressure",
   "scripts": {
     "dev": "node --watch src/main.ts",
     "start": "node src/main.ts",
