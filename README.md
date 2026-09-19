@@ -60,16 +60,25 @@ You can also `cd` into a project and run its scripts directly.
 - Anything only one project needs is installed into that project with `-w`.
 - Only the root has a `package-lock.json`.
 - A folder joins the workspace only once it has a `package.json`.
-- Both `*/project/*` and `*/practice/*` are workspace globs, so an exercise with
-  its own dependencies works the same way a project does.
+- The workspace globs are `*/project/*` and `*/practice`. Each part's `practice`
+  folder is one package holding all of that part's exercises; each project under
+  `project/` is its own package.
 
-## Adding something new
+## Adding a project
 
-1. Create `<part>/project/<name>/` or `<part>/practice/<name>/` with `src/` and `test/`.
+1. Create `<part>/project/<name>/` with `src/` and `test/`.
 2. Add a `package.json` with a unique `name`, `"private": true` and `"type": "module"`.
-3. Add a `tsconfig.json` extending `../../../tsconfig.base.json` — three levels
-   up from `<part>/<practice|project>/<name>/`.
+3. Add a `tsconfig.json` extending `../../../tsconfig.base.json` — three levels up.
 4. Run `npm install` from the root to link it.
+
+## Adding a part's practice package
+
+1. Create `<part>/practice/` with `src/`.
+2. Add a `package.json` named `<part>-practice`, plus a `tsconfig.json`
+   extending `../../tsconfig.base.json` — two levels up, one fewer than a project.
+3. Run `npm install` from the root.
+
+Later exercises in the same part are new files under that `src/`, not new packages.
 
 Projects use a type-first `src/` layout: `controllers/`, `services/`, `models/`,
 `repositories/`, `routes/`, `middleware/`, `config/`, `errors/`, `utils/`.

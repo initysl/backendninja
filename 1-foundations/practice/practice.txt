@@ -1,0 +1,3 @@
+PRACTICE
+Take a messy third-party JSON response, validate it at the boundary with a Zod schema, and derive
+every downstream type with z.infer so nothing is declared twice.

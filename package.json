@@ -5,7 +5,7 @@
   "type": "module",
   "workspaces": [
     "*/project/*",
-    "*/practice/*"
+    "*/practice"
   ],
   "scripts": {
     "test": "npm test --workspaces --if-present",
@@ -15,7 +15,6 @@
     "node": ">=22.18"
   },
   "devDependencies": {
-    "@types/express": "^5.0.6",
     "@types/node": "^24.13.5",
     "typescript": "^5.9.3"
   }

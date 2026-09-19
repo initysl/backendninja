@@ -20,6 +20,7 @@
     "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
     "@types/http-errors": "^2.0.5",
     "@types/multer": "^2.2.0",
     "@types/supertest": "^7.2.1",
