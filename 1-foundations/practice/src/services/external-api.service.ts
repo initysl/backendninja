@@ -20,7 +20,9 @@ export async function fetchWeatherData(location: string): Promise<WeatherData> {
       .map((issue) => `${issue.path.join('.') || '(root)'}: ${issue.message}`)
       .join('; ');
 
-    throw new Error(`Unexpected response shape from wttr.in - ${issues}`);
+    throw new Error(`Unexpected response shape from wttr.in - ${issues}`, {
+      cause: result.error,
+    });
   }
 
   return result.data;
