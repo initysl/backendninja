@@ -41,7 +41,3 @@ export const wttrResponseSchema = z
     condition: data.current_condition.weatherDesc,
     uvIndex: data.current_condition.uvIndex,
   }));
-
-// Note: `typeof wttrResponseSchema` would be the type of the *schema object*
-// (a ZodPipe), not of the parsed data. The parsed shape is `WeatherData` in
-// types/external-api.ts, derived with z.infer.
