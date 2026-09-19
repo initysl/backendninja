@@ -1,7 +1,6 @@
 # backendninja
 
-Work from the backend engineering roadmap, one folder per part. This is an npm
-workspace: install once here and every project shares the root `node_modules`.
+Work from the backend engineering roadmap.
 
 ## Layout
 
@@ -25,6 +24,7 @@ backendninja/
 └── 7-architecture-and-scale/
 ```
 
+<!--
 **`practice/`** holds the short exercises — a few hours each, one concept apiece.
 They are for learning, not for showing.
 
@@ -81,4 +81,4 @@ You can also `cd` into a project and run its scripts directly.
 Later exercises in the same part are new files under that `src/`, not new packages.
 
 Projects use a type-first `src/` layout: `controllers/`, `services/`, `models/`,
-`repositories/`, `routes/`, `middleware/`, `config/`, `errors/`, `utils/`.
+`repositories/`, `routes/`, `middleware/`, `config/`, `errors/`, `utils/`. -->
