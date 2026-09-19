@@ -36,17 +36,17 @@ The schema absorbs all of that at the boundary. Everything downstream sees:
 From the repository root:
 
 ```bash
-npm start -w foundations-practice              # defaults to New York
-npm start -w foundations-practice -- Lagos     # pass a location
+npm run weather -w foundations-practice              # defaults to New York
+npm run weather -w foundations-practice -- Lagos     # pass a location
 npm run typecheck -w foundations-practice
 ```
 
 From this folder:
 
 ```bash
-node src/index.ts
-node src/index.ts Berlin
-npm run dev            # re-runs on save
+node weather-boundary/index.ts
+node weather-boundary/index.ts Berlin
+npm run weather:watch        # re-runs on save
 ```
 
 No build step and no `tsx` — Node 24 strips the types itself. It needs a network
@@ -55,8 +55,8 @@ connection, since it calls the real API.
 ### Layout
 
 ```
-src/
-├── index.ts                        entrypoint: reads the location, prints the result
+weather-boundary/
+├── index.ts                          entrypoint: reads the location, prints the result
 ├── services/external-api.service.ts  fetches, checks the response, validates
 ├── schemas/external-api.schema.ts    the Zod schema and its transforms
 └── types/external-api.ts             WeatherData, derived with z.infer

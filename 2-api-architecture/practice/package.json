@@ -1,0 +1,17 @@
+{
+  "name": "api-architecture-practice",
+  "private": true,
+  "type": "module",
+  "description": "Part 2 practice exercises: HTTP semantics, caching, contracts",
+  "scripts": {
+    "etag": "node httpexpress/server.ts",
+    "etag:watch": "node --watch httpexpress/server.ts",
+    "typecheck": "tsc --project tsconfig.json"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6"
+  }
+}

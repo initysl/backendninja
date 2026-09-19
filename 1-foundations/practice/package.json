@@ -4,8 +4,8 @@
   "type": "module",
   "description": "Part 1 practice exercises: typing an untrusted third-party response at the boundary",
   "scripts": {
-    "start": "node src/index.ts",
-    "dev": "node --watch src/index.ts",
+    "weather": "node weather-boundary/index.ts",
+    "weather:watch": "node --watch weather-boundary/index.ts",
     "typecheck": "tsc --project tsconfig.json"
   },
   "dependencies": {
