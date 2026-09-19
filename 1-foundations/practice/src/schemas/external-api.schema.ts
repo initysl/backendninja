@@ -17,9 +17,6 @@ export const wttrResponseSchema = z
           uvIndex: z.coerce.number(),
         }),
       )
-      // .min(1) before .transform: an empty array would otherwise yield
-      // undefined here and crash the flattening transform below with a
-      // TypeError, instead of failing as a clean validation error.
       .min(1, 'wttr.in returned no current_condition entries')
       .transform((items) => items[0]!),
     nearest_area: z

@@ -6,8 +6,7 @@ applies here.
 ## Scope of this repository
 
 This repo is for **practice and learning** against the backend roadmap. Real
-products live in their own repositories, because each one needs its own README,
-deploy and link to be worth showing.
+products live in their own repositories.
 
 That distinction decides how much configuration is appropriate. Config should
 scale with what the thing is for. Adding a Dockerfile and a CI pipeline to a
@@ -18,11 +17,11 @@ meant to take.
 
 Most bad setups come from applying one kind's config to another.
 
-| Kind | Needs | Does not need |
-|---|---|---|
-| **Script or exercise** | `package.json`, `tsconfig.json`, `src/` | Docker, CI, tests, lint config, env files |
-| **Deployable service** | Everything below | Publishing config, `exports` map |
-| **Published library** | Build to `dist/`, `exports` map, declaration files, changesets | Dockerfile, `.env` |
+| Kind                   | Needs                                                          | Does not need                             |
+| ---------------------- | -------------------------------------------------------------- | ----------------------------------------- |
+| **Script or exercise** | `package.json`, `tsconfig.json`, `src/`                        | Docker, CI, tests, lint config, env files |
+| **Deployable service** | Everything below                                               | Publishing config, `exports` map          |
+| **Published library**  | Build to `dist/`, `exports` map, declaration files, changesets | Dockerfile, `.env`                        |
 
 ## A deployable service: the full anatomy
 
@@ -164,13 +163,13 @@ separate gate, not an afterthought.
 
 ## Tooling, honestly labelled
 
-| Concern | Dominant | Rising |
-|---|---|---|
-| Lint | ESLint + typescript-eslint | Biome |
-| Format | Prettier | Biome |
-| Test | Jest in existing code, Vitest for new | `node:test` |
-| Package manager | npm | pnpm |
-| Monorepo | pnpm workspaces + Turborepo | Nx |
+| Concern         | Dominant                              | Rising      |
+| --------------- | ------------------------------------- | ----------- |
+| Lint            | ESLint + typescript-eslint            | Biome       |
+| Format          | Prettier                              | Biome       |
+| Test            | Jest in existing code, Vitest for new | `node:test` |
+| Package manager | npm                                   | pnpm        |
+| Monorepo        | pnpm workspaces + Turborepo           | Nx          |
 
 Genuine non-consensus, where anyone claiming one right answer is selling
 something: ESM versus CommonJS, colocated tests versus a `test/` directory, and

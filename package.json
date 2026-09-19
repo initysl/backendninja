@@ -4,8 +4,7 @@
   "description": "Backend engineering roadmap projects",
   "type": "module",
   "workspaces": [
-    "*/project/*",
-    "*/practice"
+    "*/*"
   ],
   "scripts": {
     "test": "npm test --workspaces --if-present",
