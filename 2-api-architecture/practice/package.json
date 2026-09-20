@@ -9,6 +9,9 @@
     "openapi": "node openapi-contract/server.ts",
     "openapi:generate": "node openapi-contract/scripts/generate.ts",
     "openapi:check": "node openapi-contract/scripts/check.ts",
+    "pagination:fetch": "node keyset-pagination/fetch-stories.ts",
+    "pagination:demo": "node keyset-pagination/demo.ts",
+    "pagination:test": "node --test keyset-pagination/pagination.test.ts",
     "typecheck": "tsc --project tsconfig.json"
   },
   "dependencies": {
