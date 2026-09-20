@@ -88,7 +88,7 @@ export function buildOpenApiDocument(): Json {
       description:
         'Generated from Zod schemas. Do not edit openapi.json by hand.',
     },
-    servers: [{ url: 'http://localhost:3001/v1' }],
+    servers: [{ url: 'http://localhost:3000/v1' }],
     paths,
   };
 }

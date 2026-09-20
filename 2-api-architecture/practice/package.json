@@ -6,11 +6,15 @@
   "scripts": {
     "etag": "node httpexpress/server.ts",
     "etag:watch": "node --watch httpexpress/server.ts",
+    "openapi": "node openapi-contract/server.ts",
+    "openapi:generate": "node openapi-contract/scripts/generate.ts",
+    "openapi:check": "node openapi-contract/scripts/check.ts",
     "typecheck": "tsc --project tsconfig.json"
   },
   "dependencies": {
     "express": "^5.2.1",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
